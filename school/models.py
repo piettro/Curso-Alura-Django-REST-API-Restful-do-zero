@@ -29,3 +29,14 @@ class Course(models.Model):
     def __str__(self):
         return self.code
     
+class Enrollment(models.Model):
+    period_choices = [
+        ('M', 'Matutino'),
+        ('V', 'Vespertino'),
+        ('N', 'Noturno'),
+    ]
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    enrollment_date = models.DateField(auto_now_add=True)
+    period = models.CharField(max_length=1, blank=False, null=False, default='M' ,choices=period_choices)
